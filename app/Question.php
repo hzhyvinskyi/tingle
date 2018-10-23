@@ -18,7 +18,7 @@ class Question extends Model
     /**
      * @param $value
      */
-    public function setTitleAttributes($value)
+    public function setTitleAttribute($value)
     {
         $this->attributes['title'] = $value;
         $this->attributes['slug'] = str_slug($value);
