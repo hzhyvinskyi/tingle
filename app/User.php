@@ -28,6 +28,11 @@ class User extends Authenticatable
         'password', 'remember_token',
     ];
 
+    public function getUrlAttribute()
+    {
+        return '#';
+    }
+
     /**
      * @return \Illuminate\Database\Eloquent\Relations\HasMany
      */
