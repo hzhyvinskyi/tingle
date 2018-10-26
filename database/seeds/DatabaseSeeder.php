@@ -11,10 +11,10 @@ class DatabaseSeeder extends Seeder
      */
     public function run()
     {
-        factory(App\User::class, rand(1, 3))->create()->each(function ($u) {
+        factory(App\User::class, rand(1, 100))->create()->each(function ($u) {
             $u->questions()
                 ->saveMany(
-                    factory(App\Question::class, rand(0, 5))->make()
+                    factory(App\Question::class, rand(0, 3))->make()
                 );
         });
     }
