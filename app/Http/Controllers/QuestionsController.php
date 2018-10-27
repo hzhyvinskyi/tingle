@@ -2,10 +2,9 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Requests\CreateQuestionRequest;
-use App\Question;;
-use Illuminate\Http\Request;
-use Illuminate\Support\Facades\DB;
+
+use App\Question;
+use App\Http\Requests\AskQuestionRequest;
 
 class QuestionsController extends Controller
 {
@@ -28,16 +27,18 @@ class QuestionsController extends Controller
      */
     public function create()
     {
-        return view('questions.create');
+        $question = new Question();
+
+        return view('questions.create', compact('question'));
     }
 
     /**
      * Store a newly created resource in storage.
      *
-     * @param CreateQuestionRequest $request
+     * @param AskQuestionRequest $request
      * @return \Illuminate\Http\Response
      */
-    public function store(CreateQuestionRequest $request)
+    public function store(AskQuestionRequest $request)
     {
         $request->user()->questions()->create($request->only('title', 'text'));
 
@@ -63,19 +64,21 @@ class QuestionsController extends Controller
      */
     public function edit(Question $question)
     {
-        //
+        return view('questions.edit', compact('question'));
     }
 
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param AskQuestionRequest $request
      * @param  \App\Question  $question
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Question $question)
+    public function update(AskQuestionRequest $request, Question $question)
     {
-        //
+        $question->update($request->only('title', 'text'));
+
+        return redirect()->route('questions.index')->with('success', 'Your question has been updated');
     }
 
     /**
