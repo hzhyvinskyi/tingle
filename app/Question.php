@@ -29,7 +29,7 @@ class Question extends Model
      */
     public function getUrlAttribute()
     {
-        return route('questions.show', $this->id);
+        return route('questions.show', $this->slug);
     }
 
     /**
@@ -54,6 +54,11 @@ class Question extends Model
         }
 
         return 'unanswered';
+    }
+
+    public function getTextHtmlAttribute()
+    {
+        return \Parsedown::instance()->text($this->text);
     }
 
     /**
